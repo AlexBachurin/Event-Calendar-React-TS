@@ -3,6 +3,9 @@ import { Button, DatePicker, Form, Input, Select } from 'antd'
 import { IEvent } from '../../models/IEvent';
 import { iUser } from '../../models/IUser';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useDispatch } from 'react-redux';
+import { Moment } from 'moment';
+import { formatDate } from '../../utils/utils';
 
 interface Props {
     guests: iUser[]
@@ -12,7 +15,21 @@ const EventForm: FC<Props> = ({guests}) => {
    //get user to set author of event
   const {user} = useTypedSelector(state => state.authReducer);
   //state for event
-  const [event, setEvent] = useState<IEvent>({} as IEvent)
+  const [event, setEvent] = useState<IEvent>({
+      description: '',
+      author: user.username,
+      date: '',
+      guest: ''
+
+  } as IEvent)
+//   const dispatch = useDispatch();
+
+  const selectDate = (date: Moment | null) => {
+      if (date) {
+          console.log(formatDate(date.toDate()));
+          setEvent({...event, date: `${date}`})
+      }
+  }
   const onSubmit = () => {
     console.log('submit')
   }
@@ -30,14 +47,16 @@ const EventForm: FC<Props> = ({guests}) => {
               name="description"
               rules={[{ required: true, message: 'required field' }]}
             >
-              <Input />
+              <Input value={event.description} onChange={(e) => setEvent({...event, description: e.target.value})} />
             </Form.Item>
             <Form.Item
               label="Дата"
               name="date"
               rules={[{ required: true, message: 'required field' }]}
             >
-              <DatePicker />
+              <DatePicker 
+                onChange={(date) => selectDate(date)}
+              />
             </Form.Item>
             <Form.Item
               label='Выберите гостя'
@@ -47,7 +66,13 @@ const EventForm: FC<Props> = ({guests}) => {
               <Select placeholder="Select a person" style={{ width: 120 }}>
                 {guests.map(guest => {
                     return (
-                        <Select.Option key={guest.username} value={guest.username}>{guest.username}</Select.Option>
+                        <Select.Option
+                            key={guest.username}
+                            value={guest.username}
+                            onChange={(guest:string) => setEvent({...event, guest})}
+                        >
+                        {guest.username}
+                        </Select.Option>
                     )
                 })}
             </Select>
