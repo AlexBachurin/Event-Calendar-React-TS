@@ -1,6 +1,7 @@
 import axios from "axios";
 import { AppDispatch } from "../..";
 import { iUser } from "../../../models/IUser";
+import { ModalActionCreators } from "../login/action-creators";
 
 import { AuthActionEnum, SetAuthAction, SetAuthErrorAction, SetAuthLoadingAction, SetUserAction } from "./types";
 //action creators
@@ -13,8 +14,23 @@ export const AuthActionCreators = {
     login: (username: string, password: string) => async (dispatch: AppDispatch) => {
         try {
             dispatch(AuthActionCreators.setAuthLoading(true));
-            const fetchUsers = await axios.get('./users.json');
-            console.log(fetchUsers);
+            setTimeout( async () => {
+                const fetchUsers = await axios.get<iUser[]>('./users.json');
+                const users = fetchUsers.data;
+                const user = users.find(item => {
+                    return item.username === username && item.password === password;
+                })
+                if (user) {
+                    console.log('success');
+                    dispatch(AuthActionCreators.setIsAuth(true))
+                    dispatch(AuthActionCreators.setUser(user))
+                    dispatch(ModalActionCreators.openModal(false))
+                } else {
+                    console.log('not success')
+                    dispatch(AuthActionCreators.setAuthError('login is not successfull'))
+                }
+                dispatch(AuthActionCreators.setAuthLoading(false))
+            }, 2000);
         } catch (error) {
             dispatch(AuthActionCreators.setAuthError('Ошибка при логине'))
         }
