@@ -1,9 +1,12 @@
 import axios from "axios";
+
 import { AppDispatch } from "../..";
 import { iUser } from "../../../models/IUser";
 import { ModalActionCreators } from "../login/action-creators";
 
 import { AuthActionEnum, SetAuthAction, SetAuthErrorAction, SetAuthLoadingAction, SetUserAction } from "./types";
+
+
 //action creators
 export const AuthActionCreators = {
     setUser: (user: iUser): SetUserAction => ({type: AuthActionEnum.SET_USER, payload: user}),
@@ -22,6 +25,7 @@ export const AuthActionCreators = {
                     return item.username === username && item.password === password;
                 })
                 if (user) {
+                    
                     console.log('success');
                     //set to local storage
                     localStorage.setItem('auth', 'true');
@@ -29,6 +33,8 @@ export const AuthActionCreators = {
                     dispatch(AuthActionCreators.setIsAuth(true))
                     dispatch(AuthActionCreators.setUser(user))
                     dispatch(ModalActionCreators.openModal(false))
+                    
+                    
                 } else {
                     console.log('not success')
                     dispatch(AuthActionCreators.setAuthError('login is not successfull'))
