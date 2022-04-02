@@ -9,15 +9,15 @@ export enum loginModalEnum {
     SHOW_REGISTER = 'SHOW_REGISTER'
 }
 
-interface openModalAction {
+export interface openModalAction {
     type: loginModalEnum.OPEN_MODAL
     payload: boolean
 }
-interface closeModalAction {
+export interface closeModalAction {
     type: loginModalEnum.CLOSE_MODAL
     payload: boolean
 }
-interface showRegisterAction {
+export interface showRegisterAction {
     type: loginModalEnum.SHOW_REGISTER
     payload: boolean
 }

@@ -8,16 +8,15 @@ import LoginForm from './LoginForm';
 interface Props {
     isModalVisible: boolean,
     handleCancel: () => void,
-    showRegister: boolean,
-    handleShowRegister: () => void
+    isShowRegister: boolean,
 }
 
-const LoginFormModal: FC<Props> = ({handleCancel, isModalVisible, showRegister, handleShowRegister}) => {
+const LoginFormModal: FC<Props> = ({handleCancel, isModalVisible, isShowRegister}) => {
    
  
   return (
     <Modal title="Login or register" visible={isModalVisible} onCancel={handleCancel} footer={null}>
-       {showRegister? <RegistrationForm handleShowRegister={handleShowRegister}/> : <LoginForm handleShowRegister={handleShowRegister}/>}
+       {isShowRegister? <RegistrationForm /> : <LoginForm />}
     </Modal>
   )
 }

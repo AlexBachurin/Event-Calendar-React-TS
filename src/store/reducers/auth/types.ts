@@ -16,19 +16,19 @@ export enum AuthActionEnum {
 }
 
 //тайп экшиона
-interface SetAuthAction {
+export interface SetAuthAction {
     type: AuthActionEnum.SET_AUTH;
     payload: boolean;
 }
-interface SetAuthLoadingAction {
+export interface SetAuthLoadingAction {
     type: AuthActionEnum.SET_AUTH_LOADING;
     payload: boolean;
 }
-interface SetUserAction {
+export interface SetUserAction {
     type: AuthActionEnum.SET_USER;
     payload: iUser;
 }
-interface SetAuthErrorAction {
+export interface SetAuthErrorAction {
     type: AuthActionEnum.SET_AUTH_ERROR;
     payload: string;
 }

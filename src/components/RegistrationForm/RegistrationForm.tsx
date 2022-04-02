@@ -1,11 +1,11 @@
 import { Button, Form, Input, Checkbox } from 'antd'
 import  { FC } from 'react'
+import { ModalActionCreators } from '../../store/reducers/login/action-creators';
+import {useAppDispatch} from '../../hooks/useAppDispatch'
 
-interface Props {
-  handleShowRegister: () => void;
-}
 
-const RegistrationForm: FC<Props> = ({handleShowRegister}) => {
+const RegistrationForm: FC = () => {
+  const dispatch = useAppDispatch();
    const onFinish = (values: any) => {
     console.log('Success:', values);
   };
@@ -105,7 +105,7 @@ const RegistrationForm: FC<Props> = ({handleShowRegister}) => {
         <Button type="primary" htmlType="submit" className='login-form-button'>
           Register
         </Button>
-        <Button type="text" htmlType='button' onClick={handleShowRegister}>Have an account?</Button>
+        <Button type="text" htmlType='button' onClick={() => dispatch(ModalActionCreators.showRegister(false))}>Have an account?</Button>
       </Form.Item>
     </Form>
   )
