@@ -14,6 +14,7 @@ export const AuthActionCreators = {
     login: (username: string, password: string) => async (dispatch: AppDispatch) => {
         try {
             dispatch(AuthActionCreators.setAuthLoading(true));
+            //set timeout to imitate fetch to server
             setTimeout( async () => {
                 const fetchUsers = await axios.get<iUser[]>('./users.json');
                 const users = fetchUsers.data;
@@ -22,6 +23,9 @@ export const AuthActionCreators = {
                 })
                 if (user) {
                     console.log('success');
+                    //set to local storage
+                    localStorage.setItem('auth', 'true');
+                    localStorage.setItem('username', user.username);
                     dispatch(AuthActionCreators.setIsAuth(true))
                     dispatch(AuthActionCreators.setUser(user))
                     dispatch(ModalActionCreators.openModal(false))
@@ -36,6 +40,11 @@ export const AuthActionCreators = {
         }
     },
     logout: () => async (dispatch: AppDispatch) => {
+        //удаляем пользователя и обнуляем состояние
+        localStorage.removeItem('auth');
+        localStorage.removeItem('user');
+        dispatch(AuthActionCreators.setUser({} as iUser));
+        dispatch(AuthActionCreators.setIsAuth(false));
         
     }
 }
