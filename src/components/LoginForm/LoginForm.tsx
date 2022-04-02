@@ -7,8 +7,8 @@ interface Props {
 }
 
 const LoginForm: FC<Props> = ({handleShowRegister}) => {
-   const onFinish = (values: any) => {
-    console.log('Success:', values);
+   const onSubmit = () => {
+    console.log('submit');
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -19,7 +19,7 @@ const LoginForm: FC<Props> = ({handleShowRegister}) => {
       name="normal_login"
       className="login-form"
       initialValues={{ remember: true }}
-      onFinish={onFinish}
+      onFinish={onSubmit}
     >
       <Form.Item
         name="username"

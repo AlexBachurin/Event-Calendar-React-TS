@@ -1,12 +1,16 @@
 import { Button, Layout,  Row } from 'antd'
 import  {useState, FC } from 'react'
+import { useAppDispatch } from '../hooks/useAppDispatch';
+import { useTypedSelector } from '../hooks/useTypedSelector';
 import LoginFormModal from './LoginForm/LoginFormModal';
 
 const Navbar: FC = () => {
+  // const {isModalVisible, isShowRegister} = useTypedSelector(state => state.loginModalReducer) 
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [showRegister, setShowRegister] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
   const showModal = () => {
-    setIsModalVisible(true);
+    setIsModalVisible(true)
   };
   const handleCancel = () => {
     setIsModalVisible(false);
