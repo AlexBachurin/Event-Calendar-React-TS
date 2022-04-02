@@ -1,6 +1,5 @@
-import { Button, Layout, Form, Modal, Row, Input, Checkbox } from 'antd'
-import React, {useState, FC } from 'react'
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Button, Layout,  Row } from 'antd'
+import  {useState, FC } from 'react'
 import LoginFormModal from './LoginForm/LoginFormModal';
 
 const Navbar: FC = () => {

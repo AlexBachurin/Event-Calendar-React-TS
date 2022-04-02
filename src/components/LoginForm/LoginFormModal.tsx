@@ -1,6 +1,6 @@
 
 import {  Modal, } from 'antd'
-import React, { FC } from 'react'
+import  { FC } from 'react'
 import RegistrationForm from '../RegistrationForm/RegistrationForm';
 
 import LoginForm from './LoginForm';

@@ -1,5 +1,5 @@
-import { Button, Form, Modal, Input, Checkbox } from 'antd'
-import React, {useState, FC } from 'react'
+import { Button, Form, Input, Checkbox } from 'antd'
+import  { FC } from 'react'
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 interface Props {
@@ -31,7 +31,7 @@ const LoginForm: FC<Props> = ({handleShowRegister}) => {
         name="password"
         rules={[{ required: true, message: 'Please input your Password!' }]}
       >
-        <Input
+        <Input.Password
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
           placeholder="Password"
