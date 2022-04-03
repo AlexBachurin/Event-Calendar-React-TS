@@ -33,9 +33,7 @@ const EventForm: FC<Props> = ({guests}) => {
       }
   }
   const onSubmit = () => {
-    events.push(event)
-    console.log(events)
-    dispatch(EventActionCreators.setEvents(events))
+    dispatch(EventActionCreators.createEvent(event))
   }
   return (
     <Form

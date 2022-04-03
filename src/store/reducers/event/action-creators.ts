@@ -18,7 +18,15 @@ export const EventActionCreators = {
         }
     },
     createEvent: (event : IEvent ) => async (dispatch: AppDispatch) => {
-        const state = dispatch(EventActionCreators.getEvents())  
-        console.log(state); 
+        //get events events from local storage or return empty array
+        const events = localStorage.getItem('events') || '[]';
+        //parse it 
+        const parsedEvents = JSON.parse(events) as IEvent[];
+        //add new event
+        parsedEvents.push(event)
+        //save it in local storage
+        localStorage.setItem('events', JSON.stringify(parsedEvents));
+        //set new events to state
+        dispatch(EventActionCreators.setEvents(parsedEvents));
     }
 }
