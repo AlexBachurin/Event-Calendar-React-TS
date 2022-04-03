@@ -7,10 +7,9 @@ import AppRouter from "./components/AppRouter";
 import Navbar from "./components/Navbar";
 import { useAppDispatch } from "./hooks/useAppDispatch";
 import { useTypedSelector } from "./hooks/useTypedSelector";
-import { IEvent } from "./models/IEvent";
+
 import { iUser } from "./models/IUser";
 import { AuthActionCreators } from "./store/reducers/auth/action-creators";
-import { EventActionCreators } from "./store/reducers/event/action-creators";
 
 function App() {
 	const dispatch = useAppDispatch();
@@ -28,7 +27,7 @@ function App() {
 	//also display events after reload page
 	useEffect(() => {
 		const auth = localStorage.getItem("auth");
-		// const events = localStorage.getItem('events') || '[]'
+
 		if (auth) {
 			dispatch(
 				AuthActionCreators.setUser({
@@ -37,7 +36,8 @@ function App() {
 			);
 			dispatch(AuthActionCreators.setIsAuth(true));
 		}
-		// dispatch(EventActionCreators.setEvents(JSON.parse(events) as IEvent[]))
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
