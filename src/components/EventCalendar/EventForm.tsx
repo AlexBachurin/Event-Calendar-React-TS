@@ -4,7 +4,7 @@ import { IEvent } from '../../models/IEvent';
 import { iUser } from '../../models/IUser';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useDispatch } from 'react-redux';
-import { Moment } from 'moment';
+import moment, { Moment } from 'moment';
 import { formatDate } from '../../utils/utils';
 import { EventActionCreators } from '../../store/reducers/event/action-creators';
 
@@ -25,16 +25,28 @@ const EventForm: FC<Props> = ({guests}) => {
   } as IEvent)
   const dispatch = useDispatch();
 
+  //SELECT DATE HANDLER
   const selectDate = (date: Moment | null) => {
       if (date) {
           console.log(formatDate(date.toDate()));
           setEvent({...event, date: `${formatDate(date.toDate())}`})
       }
   }
+
+  //SUBMIT
   const onSubmit = () => {
     dispatch(EventActionCreators.createEvent(event))
     //also trigger rerender right away
     dispatch(EventActionCreators.fetchEvents(user.username))
+  }
+
+  //PREVENT ACCESS TO PAST DATES
+  const isDateBefore = (currentDate: Moment | null)=> {
+    //get today date
+    const today = moment().toDate();
+    //compare date we get in DatePicker with today date and if it si before we disable it
+    //return will be true or false
+    return moment(currentDate?.toDate()).isBefore(today);   
   }
   return (
     <Form
@@ -59,6 +71,7 @@ const EventForm: FC<Props> = ({guests}) => {
             >
               <DatePicker 
                 onChange={(date) => selectDate(date)}
+                disabledDate={isDateBefore}
               />
             </Form.Item>
             <Form.Item
