@@ -14,7 +14,7 @@ const eventReducer = (state = initialState , action : EventAction) : EventState 
         return {...state, events: action.payload}
     }
     if (action.type === EventActionEnum.GET_EVENTS) {
-        return state
+        return state;
     }
     return state;
 }

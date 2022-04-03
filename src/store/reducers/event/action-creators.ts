@@ -17,6 +17,7 @@ export const EventActionCreators = {
             console.log(error)
         }
     },
+    //create single event
     createEvent: (event : IEvent ) => async (dispatch: AppDispatch) => {
         //get events events from local storage or return empty array
         const events = localStorage.getItem('events') || '[]';
@@ -28,5 +29,16 @@ export const EventActionCreators = {
         localStorage.setItem('events', JSON.stringify(parsedEvents));
         //set new events to state
         dispatch(EventActionCreators.setEvents(parsedEvents));
+    },
+    //fetch all events that associated with current user if user is author of event or guest of event
+    fetchEvents: (username: string) => async (dispatch: AppDispatch) => {
+        //get events events from local storage or return empty array
+        const events = localStorage.getItem('events') || '[]';
+        //parse it 
+        const parsedEvents = JSON.parse(events) as IEvent[];
+        //filter events to display for user if user is author of event or guest of event
+        const filteredEvents = parsedEvents.filter(event => event.author === username || event.guest === username);
+        //save it to state
+        dispatch(EventActionCreators.setEvents(filteredEvents));
     }
 }
