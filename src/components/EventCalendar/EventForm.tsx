@@ -15,7 +15,6 @@ interface Props {
 const EventForm: FC<Props> = ({guests}) => {
    //get user to set author of event
   const {user} = useTypedSelector(state => state.authReducer);
-  const {events} = useTypedSelector(state => state.eventReducer)
   //state for event
   const [event, setEvent] = useState<IEvent>({
       description: '',
