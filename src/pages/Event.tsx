@@ -10,7 +10,7 @@ import { EventActionCreators } from '../store/reducers/event/action-creators';
 const Event:FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const {guests, events} = useTypedSelector(state => state.eventReducer)
-  
+  const {user} = useTypedSelector(state => state.authReducer)
   const dispatch = useDispatch();
 
   const showModal = () => {
@@ -24,6 +24,7 @@ const Event:FC = () => {
   //Получить гостей при первой отрисовке
   useEffect(() => {
     dispatch(EventActionCreators.fetchGuests())
+    dispatch(EventActionCreators.fetchEvents(user.username))
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   

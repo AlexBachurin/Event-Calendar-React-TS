@@ -28,12 +28,12 @@ function App() {
   //also display events after reload page
   useEffect(() => {
     const auth = localStorage.getItem('auth');
-    const events = localStorage.getItem('events') || '[]'
+    // const events = localStorage.getItem('events') || '[]'
     if (auth) {
       dispatch(AuthActionCreators.setIsAuth(true));
       dispatch(AuthActionCreators.setUser({username: localStorage.getItem('username' || '')} as iUser))
     }
-    dispatch(EventActionCreators.setEvents(JSON.parse(events) as IEvent[]))
+    // dispatch(EventActionCreators.setEvents(JSON.parse(events) as IEvent[]))
   }, [])
   
   
