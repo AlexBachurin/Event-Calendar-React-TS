@@ -28,10 +28,10 @@ export const AuthActionCreators = {
                     
                     console.log('success');
                     //set to local storage
-                    localStorage.setItem('auth', 'true');
                     localStorage.setItem('username', user.username);
-                    dispatch(AuthActionCreators.setIsAuth(true))
+                    localStorage.setItem('auth', 'true');
                     dispatch(AuthActionCreators.setUser(user))
+                    dispatch(AuthActionCreators.setIsAuth(true))
                     dispatch(ModalActionCreators.openModal(false))
                     
                     
