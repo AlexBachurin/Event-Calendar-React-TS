@@ -9,7 +9,7 @@ import { EventActionCreators } from '../store/reducers/event/action-creators';
 
 const Event:FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const {guests} = useTypedSelector(state => state.eventReducer)
+  const {guests, events} = useTypedSelector(state => state.eventReducer)
   
   const dispatch = useDispatch();
 
@@ -30,7 +30,7 @@ const Event:FC = () => {
   return (
     <Row align='middle' className='main__content' justify='center'>
       <div className="main__content-wrapper">
-        <EventCalendar events={[]} />
+        <EventCalendar events={events} />
         <Row justify='center'>
           <Button onClick={showModal} type="primary">Добавить событие</Button>
         </Row>

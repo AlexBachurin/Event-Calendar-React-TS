@@ -6,6 +6,7 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useDispatch } from 'react-redux';
 import { Moment } from 'moment';
 import { formatDate } from '../../utils/utils';
+import { EventActionCreators } from '../../store/reducers/event/action-creators';
 
 interface Props {
     guests: iUser[]
@@ -14,6 +15,7 @@ interface Props {
 const EventForm: FC<Props> = ({guests}) => {
    //get user to set author of event
   const {user} = useTypedSelector(state => state.authReducer);
+  const {events} = useTypedSelector(state => state.eventReducer)
   //state for event
   const [event, setEvent] = useState<IEvent>({
       description: '',
@@ -22,16 +24,18 @@ const EventForm: FC<Props> = ({guests}) => {
       guest: ''
 
   } as IEvent)
-//   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const selectDate = (date: Moment | null) => {
       if (date) {
           console.log(formatDate(date.toDate()));
-          setEvent({...event, date: `${date}`})
+          setEvent({...event, date: `${formatDate(date.toDate())}`})
       }
   }
   const onSubmit = () => {
-    console.log('submit')
+    events.push(event)
+    console.log(events)
+    dispatch(EventActionCreators.setEvents(events))
   }
   return (
     <Form
@@ -63,13 +67,12 @@ const EventForm: FC<Props> = ({guests}) => {
               name='guest'
               rules={[{ required: true, message: 'required field' }]}
             >
-              <Select placeholder="Select a person" style={{ width: 120 }}>
+              <Select onChange={(guest:string) => setEvent({...event, guest: guest})} placeholder="Select a person" style={{ width: 120 }}>
                 {guests.map(guest => {
                     return (
                         <Select.Option
                             key={guest.username}
-                            value={guest.username}
-                            onChange={(guest:string) => setEvent({...event, guest})}
+                            value={guest.username}   
                         >
                         {guest.username}
                         </Select.Option>
