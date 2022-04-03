@@ -27,8 +27,7 @@ export const EventActionCreators = {
         parsedEvents.push(event)
         //save it in local storage
         localStorage.setItem('events', JSON.stringify(parsedEvents));
-        //set new events to state
-        dispatch(EventActionCreators.setEvents(parsedEvents));
+        
     },
     //fetch all events that associated with current user if user is author of event or guest of event
     fetchEvents: (username: string) => async (dispatch: AppDispatch) => {

@@ -33,6 +33,8 @@ const EventForm: FC<Props> = ({guests}) => {
   }
   const onSubmit = () => {
     dispatch(EventActionCreators.createEvent(event))
+    //also trigger rerender right away
+    dispatch(EventActionCreators.fetchEvents(user.username))
   }
   return (
     <Form

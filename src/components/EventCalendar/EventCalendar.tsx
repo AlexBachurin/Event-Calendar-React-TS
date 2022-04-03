@@ -15,13 +15,16 @@ const EventCalendar: FC<Props> = ({events}) => {
     //check if we have this date in our array with events
     const currentDayEvent  = events.filter(item => item.date === formattedDate);
     return (
-      <ul className="events">
+      <ul style={{paddingLeft: '5px'}} className="events">
         {currentDayEvent.map(item => (
+          <>
           <li key={item.date + item.author}>
             <p style={{marginBottom: '1px'}}>author: {item.author}</p>
-            <Badge status='default' text={item.description} />
+            <Badge status='success' text={item.description} />
             <p>guest: {item.guest}</p>
           </li>
+          <hr />
+          </>
         ))}
       </ul>
     );

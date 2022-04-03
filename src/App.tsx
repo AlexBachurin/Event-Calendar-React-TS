@@ -30,8 +30,9 @@ function App() {
     const auth = localStorage.getItem('auth');
     // const events = localStorage.getItem('events') || '[]'
     if (auth) {
-      dispatch(AuthActionCreators.setIsAuth(true));
       dispatch(AuthActionCreators.setUser({username: localStorage.getItem('username' || '')} as iUser))
+      dispatch(AuthActionCreators.setIsAuth(true));
+      
     }
     // dispatch(EventActionCreators.setEvents(JSON.parse(events) as IEvent[]))
   }, [])

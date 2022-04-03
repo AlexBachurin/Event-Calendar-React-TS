@@ -23,8 +23,9 @@ const Event:FC = () => {
   
   //Получить гостей при первой отрисовке
   useEffect(() => {
-    dispatch(EventActionCreators.fetchGuests())
     dispatch(EventActionCreators.fetchEvents(user.username))
+    dispatch(EventActionCreators.fetchGuests())
+    
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
